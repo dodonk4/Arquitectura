@@ -21,6 +21,7 @@ const controladorGeneral = {
         if(req.body.nombre){
            res.render('registrado', {nombre: req.body.nombre} ); 
            await usuariosDao.save(req.body);
+          //  await usuariosDao.userFactory(req.body.codigoSecreto);
          }
          else{
            res.send('Registro Fallado')

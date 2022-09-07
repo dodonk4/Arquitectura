@@ -1,3 +1,5 @@
+import { Admin } from "mongodb";
+import { AssistantInstance } from "twilio/lib/rest/autopilot/v1/assistant.js";
 import contenedorMongoDb from "../contenedores/contenedorMongoDb.js";
 
 
@@ -14,11 +16,46 @@ class DaoMongoDb extends contenedorMongoDb {
             direccion: { type: String, required: true},
             edad: { type: Number, required: true},
             foto: { type: String, required: true},
-            mayoriaDeEdad: { type: Number, required: true}
+            mayoriaDeEdad: { type: Number, required: true},
+            codigoSecreto: { type: String, required: true}
         })
         this.edad > 18 ? this.mayoriaDeEdad = 1 : this.mayoriaDeEdad = 0;
+        
+    }
+
+
+    async verifySecretCode2(codigoSecreto){
+       return await this.verifySecretCode(codigoSecreto);
+    }
+
+    async save2 (objeto){
+        await this.save(objeto);
     }
     
+
 }
 
-export default DaoMongoDb;
+class CommonUser extends DaoMongoDb{
+
+}
+
+class AdminUser extends DaoMongoDb{
+
+}
+
+
+class Factory extends DaoMongoDb{
+    async factorizar(objeto){
+        if (await this.verifySecretCode2(objeto.codigoSecreto) === 1){
+            new AdminUser(objeto);
+        }else if(await this.verifySecretCode2(objeto.codigoSecreto) === 0){
+            new CommonUser(objeto);
+        }
+    }
+}
+
+
+
+
+
+export default Factory;

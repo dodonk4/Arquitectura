@@ -15,7 +15,8 @@ class contenedorMongoDb{
 
     async save(objeto){
             try {
-                const user = {nombre: objeto.nombre, contraseña: objeto.contraseña, cantidad: [], telefono: objeto.telefono, email: objeto.email, direccion: objeto.direccion, edad: objeto.edad, foto: objeto.foto, mayoriaDeEdad: objeto.mayoriaDeEdad};
+                await this.verifySecretCode(objeto.codigoSecreto) === 1 ? objeto.codigoSecreto = "adminUser" : objeto.codigoSecreto = "commonUser";
+                const user = {nombre: objeto.nombre, contraseña: objeto.contraseña, cantidad: [], telefono: objeto.telefono, email: objeto.email, direccion: objeto.direccion, edad: objeto.edad, foto: objeto.foto, mayoriaDeEdad: objeto.mayoriaDeEdad, codigoSecreto: objeto.codigoSecreto};
                 const userSaveModel = new this.coleccion(user);
                 let userSave = await userSaveModel.save();
                 console.log(userSave);
@@ -49,21 +50,6 @@ class contenedorMongoDb{
             loggerError.error(`Error de lectura: ${error}`);
         }
     }
-
-    // async changeCantidadByName(nuevaCantidad, producto, userName){
-    //     try {
-    //         let usuarios = await this.coleccion.find({});
-    //         for (let usuario of usuarios){
-    //             if (usuario.nombre === userName){
-    //                 console.log('SE RECONOCIÓ EXITOSAMENTE')
-    //                 await this.coleccion.updateOne({nombre: userName}, {$set: {cantidad: nuevaCantidad}});
-    //             }
-    //         }
-
-    //     } catch (error) {
-    //         loggerError.error(`Error de lectura: ${error}`);
-    //     }
-    // }
     
     async getCantidad(name){
         try {
@@ -90,6 +76,16 @@ class contenedorMongoDb{
             let usuario = await this.coleccion.find({nombre: name});
             return usuario;
 
+        } catch (error) {
+            loggerError.error(`Error de lectura: ${error}`);
+        }
+    }
+
+    async verifySecretCode(secretCode){
+        try {
+            let value;
+            secretCode === "secreto" ? value = 1 : value = 0;
+            return value;
         } catch (error) {
             loggerError.error(`Error de lectura: ${error}`);
         }

@@ -113,3 +113,7 @@
 [2022-09-03T11:32:20.696] [ERROR] archivoError - Error de lectura: ValidationError: mayoriaDeEdad: Path `mayoriaDeEdad` is required.
 [2022-09-03T11:32:57.543] [ERROR] archivoError - Error de lectura: ValidationError: mayoriaDeEdad: Path `mayoriaDeEdad` is required.
 [2022-09-03T11:37:35.413] [ERROR] archivoError - Error de lectura: ValidationError: mayoriaDeEdad: Path `mayoriaDeEdad` is required.
+[2022-09-06T16:20:06.971] [ERROR] archivoError - Error de lectura: ValidationError: contraseña: Path `contraseña` is required., telefono: Path `telefono` is required., email: Path `email` is required., direccion: Path `direccion` is required., edad: Path `edad` is required., foto: Path `foto` is required., codigoSecreto: Path `codigoSecreto` is required.
+[2022-09-06T16:20:37.865] [ERROR] archivoError - Error de lectura: ReferenceError: codigoSecreto is not defined
+[2022-09-06T16:22:26.946] [ERROR] archivoError - Error de lectura: ValidationError: direccion: Path `direccion` is required.
+[2022-09-06T16:22:51.994] [ERROR] archivoError - Error de lectura: ReferenceError: codigoSecreto is not defined
